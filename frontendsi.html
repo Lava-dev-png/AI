@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tutor-Tutee Portal</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --bg-light: #f0f4f8;
+      --bg-dark: #121212;
+      --card-light: #ffffff;
+      --card-dark: #1e1e1e;
+      --text-light: #333;
+      --text-dark: #e0e0e0;
+      --primary-light: #4a90e2;
+      --primary-dark: #90caf9;
+      --accent-light: #ffc107;
+      --accent-dark: #ffb74d;
+      --border-light: #ccc;
+      --border-dark: #444;
+    }
+
+    body.light-mode {
+      background-color: var(--bg-light);
+      color: var(--text-light);
+    }
+
+    body.dark-mode {
+      background-color: var(--bg-dark);
+      color: var(--text-dark);
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    header {
+      background-color: var(--primary-light);
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .form-section {
+      background-color: var(--card-light);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      border: 1px solid var(--border-light);
+      margin-bottom: 20px;
+    }
+
+    body.dark-mode .form-section {
+      background-color: var(--card-dark);
+      border: 1px solid var(--border-dark);
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #bbb;
+    }
+
+    label {
+      margin-top: 10px;
+      display: block;
+      font-weight: 600;
+    }
+
+    button {
+      margin-top: 20px;
+      background-color: var(--primary-light);
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #357ab7;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    nav button {
+      background-color: var(--accent-light);
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-weight: bold;
+    }
+
+    nav button:hover {
+      background-color: var(--accent-dark);
+    }
+
+    .icon {
+      margin-right: 8px;
+    }
+
+    .banner {
+      width: 100%;
+      height: 180px;
+      background: url('https://img.freepik.com/free-vector/online-tutor-concept-illustration_114360-6272.jpg') no-repeat center center/cover;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-chalkboard-teacher icon"></i>Tutor-Tutee Portal</h1>
+  </header>
+
+  <div class="container">
+    <div class="banner"></div>
+
+    <nav class="hidden" id="nav-bar">
+      <button onclick="showSection('home')"><i class="fas fa-home icon"></i>Home</button>
+      <button onclick="showSection('profile')"><i class="fas fa-user icon"></i>Profile</button>
+      <button onclick="showSection('chat')"><i class="fas fa-comments icon"></i>Chat</button>
+      <label style="margin-left: auto;">
+        <input type="checkbox" id="theme-toggle" onchange="toggleTheme()" />
+        Dark Mode
+      </label>
+    </nav>
+
+    <div class="form-section" id="auth-section">
+      <label>Do you have an account?</label>
+      <button onclick="showLogin()">Login</button>
+      <button onclick="showRoleSelection()">Register</button>
+    </div>
+
+    <div class="form-section hidden" id="login-form">
+      <h2>Login</h2>
+      <label>Email:</label>
+      <input type="email" id="login-email" />
+      <label>Password:</label>
+      <input type="password" id="login-password" />
+      <button onclick="loginUser()">Login</button>
+    </div>
+
+    <div class="form-section hidden" id="role-selection">
+      <label>Select your role:</label>
+      <select id="role">
+        <option value="">--Choose--</option>
+        <option value="tutor">Tutor</option>
+        <option value="tutee">Tutee</option>
+      </select>
+      <button onclick="showForm()">Continue</button>
+    </div>
+
+    <div class="form-section hidden" id="common-form">
+      <h2>Enter Your Details</h2>
+      <label>Name:</label>
+      <input type="text" id="name" />
+      <label>Email:</label>
+      <input type="email" id="email" />
+      <label>Password:</label>
+      <input type="password" id="password" />
+      <label>Confirm Password:</label>
+      <input type="password" id="confirm-password" />
+      <label>Branch:</label>
+      <select id="branch">
+        <option value="EC">EC</option>
+        <option value="EEE">EEE</option>
+        <option value="CSE">CSE</option>
+        <option value="IA">IA</option>
+        <option value="AIML">AIML</option>
+        <option value="CIVIL">CIVIL</option>
+        <option value="MECH">MECH</option>
+      </select>
+      <label>Semester:</label>
+      <select id="semester">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+      </select>
+      <label>Section:</label>
+      <input type="text" id="section" />
+      <button onclick="submitForm()">Submit</button>
+    </div>
+  </div>
+
+  <script>
+    const users = [];
+    let currentUser = null;
+
+    function showLogin() {
+      document.getElementById('auth-section').classList.add('hidden');
+      document.getElementById('login-form').classList.remove('hidden');
+    }
+
+    function showRoleSelection() {
+      document.getElementById('auth-section').classList.add('hidden');
+      document.getElementById('role-selection').classList.remove('hidden');
+    }
+
+    function showForm() {
+      const role = document.getElementById('role').value;
+      if (!role) return alert('Please select a role');
+      document.getElementById('role-selection').classList.add('hidden');
+      document.getElementById('common-form').classList.remove('hidden');
+    }
+
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirm-password').value;
+      const branch = document.getElementById('branch').value;
+      const semester = document.getElementById('semester').value;
+      const section = document.getElementById('section').value;
+      const role = document.getElementById('role').value;
+
+      if (password !== confirmPassword) {
+        alert('Passwords do not match.');
+        return;
+      }
+
+      const user = { name, email, password, branch, semester, section, role };
+      users.push(user);
+      currentUser = user;
+      alert('Registration successful!');
+      document.getElementById('common-form').classList.add('hidden');
+      document.getElementById('nav-bar').classList.remove('hidden');
+    }
+
+    function loginUser() {
+      const email = document.getElementById('login-email').value;
+      const password = document.getElementById('login-password').value;
+      const found = users.find(u => u.email === email && u.password === password);
+      if (found) {
+        currentUser = found;
+        alert(`Welcome back, ${found.name}!`);
+        document.getElementById('login-form').classList.add('hidden');
+        document.getElementById('nav-bar').classList.remove('hidden');
+      } else {
+        alert('Invalid email or password.');
+      }
+    }
+
+    function toggleTheme() {
+      const isDark = document.getElementById('theme-toggle').checked;
+      document.body.classList.toggle('dark-mode', isDark);
+      document.body.classList.toggle('light-mode', !isDark);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('light-mode');
+    });
+  </script>
+</body>
+</html>
